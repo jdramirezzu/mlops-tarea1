@@ -1,0 +1,40 @@
+Dados los avances tecnológicos, en el campo de la medicina la cantidad de información que existe de los pacientes es muy abundante. Sin embargo, para algunas enfermedades no tan comunes, llamadas huérfanas, los datos que existen escasean. Se requiere construir un modelo que sea capaz de predecir, dados los datos de síntomas de un paciente, si es posible o no que este sufra de alguna enfermedad. Esto se requiere tanto para enfermedades comunes (muchos datos) como para enfermedades huérfanas (pocos datos). 
+
+1. Descripción de un Pipeline de MLOps (50% de la unidad)
+Para el problema anterior, proponga un pipeline de ML en donde describa, de manera general, el proceso completo end-to-end para el desarrollo del modelo requerido. Algunos puntos para considerar, sin limitarse a ellos, pueden ser:
+
+Diseño: ¿Qué restricciones y limitaciones existen? ¿Qué tipos de datos se tienen?
+Desarrollo: ¿De qué fuentes provienen los datos y cómo se manejan? ¿Qué tipos de modelos de ML se puede usar? ¿Cómo se van a validar/testear?
+Producción: ¿Cómo se va a desplegar la solución? ¿Se necesita algún tipo de monitoreo para esta aplicación? ¿Pueden existir nuevos datos necesarios quizás para re-entrenar el modelo?
+ 
+
+Puede ser muy útil realizar un diagrama general de todo el proceso, junto con las descripciones necesarias para las etapas a proponer. La solución a proponer no debe ser muy detallada ni muy extensa, se busca algo como un panorama general de la solución. No es necesario incluir qué tecnologías específicas se pueden usar en las etapas, pero pueden hacerlo.
+
+2. Definición y construcción de una imagen personalizada de Docker (50% de la unidad)
+Considerando el mismo problema, se necesita desarrollar un servicio que permita a un médico usar el modelo para obtener una respuesta. El médico puede correr los pasos necesarios en su propio sistema para lanzar el modelo, entonces una solución en Docker es la respuesta ideal.
+
+Para que el médico pueda usar el modelo, se necesita lo siguiente:
+
+Modelo propuesto: En este caso el desarrollo del modelo es irrelevante, es decir, no es necesario entrenar algún modelo de ML. Entonces, es necesario desarrollar una función que retorne los siguientes estados:
+NO ENFERMO
+
+ENFERMEDAD LEVE
+
+ENFERMEDAD AGUDA
+
+ENFERMEDAD CRÓNICA
+
+Esta función puede desarrollarse de cualquier manera y se puede proponer cualquier forma para tomar argumentos de entrada. El médico debe ser capaz de introducir por lo menos 3 valores y esta función debe usarlos para retornar alguno de los estados. Puede tomar estos valores como lista, argumentos por separado, diccionario o cualquier otra forma. Lo que sí es requerido es que la función debe poder retornar cada uno de los valores para cierto conjunto de parámetros.
+
+Dockerfile: Este es el archivo que se usará para construir la imagen de Docker que contendrá el servicio. Este archivo debe construir una solución capaz de recibir los datos de entrada del médico (a través de una página web sencilla, un punto final de API o cualquier otra forma) y debe retornar alguno de los estados descritos anteriormente.
+Archivo README: Archivo en cualquier formato (pdf, Markdown, html, txt) con la finalidad del modelo/solución y las instrucciones detalladas de cómo construir la imagen, cómo correr la solución y cómo obtener respuestas del modelo.
+Extras: Cualquier otro archivo que pueda necesitar el modelo (simulado con la función) o la forma de exponer el modelo al médico.
+ 
+
+Para desarrollar la función y la forma de la solución se puede usar cualquier lenguaje de programación (Python, Java, JavaScript, C++, Go, entre otros). Como ejemplo, si se decide usar Python, se puede usar la librería Flask para exponer el servicio a través de un punto final (`localhost:5000/predecir` por ejemplo) como se muestra en este link, o a través de una página web con algunos campos de entrada, como se muestra en este link. Sin embargo, existen muchas formas y se encuentran muchos blogs sobre cómo lograrlo con los distintos lenguajes de programación. La idea de este ejercicio es que también puedan explorar distintas formas de lograr el despliegue.
+
+Forma de entrega:
+El entregable debe ser un archivo ZIP que contenga:
+
+La descripción del pipeline propuesto para el primer punto, diagrama general + explicación de etapas. Pueden realizar el entregable en cualquier formato que deseen, puede ser PDF, formatos de imagen, o incluso Markdown.
+Estructura del directorio y todos los archivos para el segundo punto, incluyendo el archivo Dockerfile para crear la imagen junto con todos los archivos necesarios para la imagen, el código fuente de la función y el archivo README con las instrucciones de cómo construir la imagen (docker build) y cómo correrla (docker run). Pueden usar también un repositorio de GitHub que contenga todos los archivos y compartir el link del repo.

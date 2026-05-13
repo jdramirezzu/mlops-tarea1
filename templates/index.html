@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Predictor de Enfermedades</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: #f0f4f8;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      padding: 2rem;
+    }
+    .card {
+      background: white;
+      border-radius: 12px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+      padding: 2.5rem;
+      width: 100%;
+      max-width: 480px;
+    }
+    h1 {
+      font-size: 1.5rem;
+      color: #1a3c5e;
+      margin-bottom: 0.4rem;
+    }
+    p.subtitle {
+      font-size: 0.9rem;
+      color: #6b7280;
+      margin-bottom: 2rem;
+    }
+    label {
+      display: block;
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: #374151;
+      margin-bottom: 0.3rem;
+    }
+    .hint {
+      font-size: 0.75rem;
+      color: #9ca3af;
+      margin-bottom: 0.5rem;
+      font-weight: 400;
+    }
+    input[type="number"] {
+      width: 100%;
+      padding: 0.6rem 0.9rem;
+      border: 1px solid #d1d5db;
+      border-radius: 8px;
+      font-size: 1rem;
+      margin-bottom: 1.2rem;
+      transition: border-color 0.2s;
+    }
+    input[type="number"]:focus {
+      outline: none;
+      border-color: #3b82f6;
+    }
+    button {
+      width: 100%;
+      padding: 0.75rem;
+      background: #1a3c5e;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    button:hover { background: #2563eb; }
+
+    .resultado {
+      margin-top: 1.8rem;
+      padding: 1.2rem;
+      border-radius: 8px;
+      text-align: center;
+      font-size: 1.1rem;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+    }
+    .NO-ENFERMO       { background: #d1fae5; color: #065f46; }
+    .ENFERMEDAD-LEVE  { background: #fef3c7; color: #92400e; }
+    .ENFERMEDAD-AGUDA { background: #fed7aa; color: #9a3412; }
+    .ENFERMEDAD-CRÓNICA { background: #fecaca; color: #7f1d1d; }
+
+    .error {
+      margin-top: 1.2rem;
+      padding: 0.9rem;
+      background: #fee2e2;
+      color: #991b1b;
+      border-radius: 8px;
+      font-size: 0.9rem;
+    }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <h1>Predictor de Enfermedades</h1>
+    <p class="subtitle">Ingrese los datos del paciente para obtener una clasificación.</p>
+
+    <form action="/predecir" method="POST">
+      <label for="temperatura">Temperatura corporal (°C)</label>
+      <span class="hint">Rango normal: 36.0 – 37.4 °C</span>
+      <input type="number" id="temperatura" name="temperatura"
+             step="0.1" min="35" max="42" placeholder="Ej: 38.5" required />
+
+      <label for="nivel_dolor">Nivel de dolor (0 – 10)</label>
+      <span class="hint">0 = sin dolor, 10 = dolor insoportable</span>
+      <input type="number" id="nivel_dolor" name="nivel_dolor"
+             step="1" min="0" max="10" placeholder="Ej: 6" required />
+
+      <label for="dias_sintomas">Días con síntomas</label>
+      <span class="hint">Cantidad de días desde que comenzaron los síntomas</span>
+      <input type="number" id="dias_sintomas" name="dias_sintomas"
+             step="1" min="0" placeholder="Ej: 5" required />
+
+      <button type="submit">Obtener diagnóstico</button>
+    </form>
+
+    {% if resultado %}
+      {% set css_class = resultado.replace(' ', '-') %}
+      <div class="resultado {{ css_class }}">
+        {{ resultado }}
+      </div>
+    {% endif %}
+
+    {% if error %}
+      <div class="error">Error: {{ error }}</div>
+    {% endif %}
+  </div>
+</body>
+</html>
