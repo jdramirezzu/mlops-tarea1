@@ -1,4 +1,7 @@
 # Predictor de Enfermedades — Servicio Docker
+## Maestria en inteligencia artificial aplicada
+
+## Presentado por: JUAN DIEGO RAMIREZ - JUAN JOSE AGUADO
 
 Servicio web que simula un modelo de clasificación de enfermedades a partir de síntomas del paciente. El médico ingresa tres valores y el sistema retorna uno de los siguientes estados:
 
